@@ -53,9 +53,11 @@ library(MVN)
 x.out2 <- mvOutlier(kk.imp[,universo.fen])
 mvOutlier(kk.imp[,universo.fen],method='adj.quan',qqplot=TRUE)
 ## posibles outliers 67201,64205
+chungos <- c('67201','64205')
+chungosMenos <- c('53208','62302','67412')
 ## habria que ver que le pasa a estos individuos
 summary(kk.imp[,universo.fen])
-kk.imp[c('67201','64205'),universo.fen]
+kk.imp[chungos,universo.fen]
 
 tr1 <- 'STFR';tr2 <- 'RUSSELL'
 tr1 <- 'HCYhplc'; tr2 <- 'CYShplc'
@@ -73,8 +75,8 @@ tr1 <- 'MAB2'; tr2 <- 'GAB2'
 
 
 corr.plot(kk.imp[,tr1],kk.imp[,tr2],xlab=tr1,ylab=tr2)
-text(kk.imp[c('67201','64205'),c(tr1,tr2)],labels=c('67201','64205'),col='red')
-text(kk.imp[c('53208','62302','67412'),c(tr1,tr2)],labels=c('53208','62302','67412'),col='green')
+text(kk.imp[chungos,c(tr1,tr2)],labels=chungos,col='red')
+text(kk.imp[chungosMenos,c(tr1,tr2)],labels=chungosMenos,col='green')
 
 dd.plot(kk.imp[,c(tr1,tr2)])
 out.multiples <- dd.plot(kk.imp[,universo.fen])
@@ -92,7 +94,7 @@ out.multiples$md.rob[out.multiples$md.rob>100]
 ############################################################################################################################################################
 
 
-
+save(dat,kk.imp,kk.imp.norm,universo.dis,universo.extr,universo.fen,universo,chungos,chungosMenos,out.plot,out.dat,file=file.path(out.dat,'dat.kk.imp.nor.RData'))
 
 
 
