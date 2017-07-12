@@ -56,6 +56,8 @@ library(naniar)
 library(dplyr)
 vis_miss(dat)
 vis_miss(dat[dat$punctured==1,])
+library(VIM)
+aggr(dat[dat$punctured==1,universo.fen])
 ## we observe some variants not with too many missings.
 gg_missing_var(dat[dat$punctured==1,])
 ##############
