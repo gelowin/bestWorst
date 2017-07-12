@@ -1,7 +1,9 @@
 codigo nuevo desde el portatil
 
-Use instead ssh-add ~/.ssh/gitHubKey, it will remember your key passphrase. The solution I proposed was to set it permanently across reboots.
 
+bajarse el keychain y poner esta linea en el .bashrc
+## ssh-agent persistency
+eval `keychain --eval --agents ssh id_rsa`
 
 no ultimo
 
