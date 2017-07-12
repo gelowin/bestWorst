@@ -23,3 +23,9 @@ git config --global user.name "Angel Martinez-Perez"
 git config --global user.email gelowin33@yahoo.es
 git config --global core.editor emacs
 exit
+
+
+
+
+podria ser algo del know_host, pero no lo creo
+
