@@ -29,3 +29,12 @@ exit
 
 podria ser algo del know_host, pero no lo creo
 
+###########################################################3
+## modifico el ~/.ssh/config
+Host github.com
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/id_rsa
+
+## chmod 600 ~/.ssh/config
+
