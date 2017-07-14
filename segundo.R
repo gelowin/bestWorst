@@ -1,4 +1,4 @@
-load('data/01seleccion.RData')
+load('/home/amartinezp/Documents/bestWorst/data/01seleccion.RData')
 
 
 library(plyr)
