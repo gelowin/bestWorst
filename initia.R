@@ -9,9 +9,9 @@ library(plyr)
 library(cluster)
 library(reshape2)
 
-out.plot <- 'plots'
+out.plot <- '/home/amartinezp/Documents/bestWorst/plots'
 dir.create(out.plot,showWarnings=FALSE)
-out.dat <- 'data'
+out.dat <- '/home/amartinezp/Documents/bestWorst/data'
 dir.create(out.dat,showWarnings=FALSE)
 
 
