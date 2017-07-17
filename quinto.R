@@ -89,13 +89,18 @@ tsne.res <- kmeans(scale(my.data), nclusters, nstart = 25)
 ## visualize
 fviz_cluster(tsne.res,data=my.data, ggtheme = theme_minimal(),main = "Partitioning Clustering tsne")
 ## pintar ahora pacientes con diferentes enfermedades.
-
+##..............................................................................................................................................
+## conclusion
+## numero de grupos == 5
+## numero de grupos == 10
+##..............................................................................................................................................
 
 
 
 ##
 ## Hierarchical clustering
 ## Compute hierarchical clustering and cut into "nclusters" clusters
+nclusters <- 5
 res <- hcut(my.data, k = nclusters, stand = TRUE)
 fviz_dend(res, rect = TRUE, cex = 0.5)
 
@@ -122,7 +127,7 @@ library(clustertend)
 library("fpc")
 library("dbscan")
 db <- fpc::dbscan(my.data, eps = 0.15, MinPts = 5)
-plot(db, df, main = "DBSCAN", frame = FALSE)
+plot(db, my.data, main = "DBSCAN", frame = FALSE)
 fviz_cluster(db, df, stand = FALSE, frame = FALSE, geom = "point")
 print(db)
 ## 5 Method for determining the optimal eps value
@@ -421,11 +426,12 @@ library(MASS)
 library(clusterfly)
 library(meifly)
 
-kk_dat <- qda(VT ~ tsne.5.1 + tsne.5.2 + tsne.5.3 + tsne.5.4 + tsne.5.5 ,dat.tsne)
+kk_dat <- qda(VT ~ tsne.3.1 + tsne.3.2 + tsne.3.3 ,dat.impRes.rtsne)
 
-o <- clusterfly(
+nTsne <- grep(names(dat.impRes.rtsne),pattern='tsne.')
 
-o <- clusterfly(dat.tsne[,names(dat.tsne)[97:150]], extra = dat.tsne[,c('VT','Psori','Hypertension')])
+
+o <- clusterfly(dat.impRes.rtsne[,nTsne], extra = dat.impRes.rtsne[,c('VT','Psori','Hypertension')])
 
 
 
