@@ -1,5 +1,5 @@
 
-load('/home/amartinezp/Documents/bestWorst/data/dat.kk.imp.nor.RData')
+load('/home/amartinezp/Documents/bestWorst/data/dat.imp.nor.res.RData')
 
 
 ##############################################
@@ -12,7 +12,7 @@ library(plyr)
 
 
 rtsneDims <- function(X){
-    a <- Rtsne(as.matrix(kk.imp.norm[,universo.fen]),dims = X)
+    a <- Rtsne(as.matrix(dat[dat$punctured==1,universo.fen]),dims = X)
     colnames(a$Y) <- paste0('tsne.',X,'.',1:X)
     row.names(a$Y) <- row.names(kk.imp.norm)
     return(a)
