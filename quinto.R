@@ -1,18 +1,13 @@
 load('/home/amartinezp/Documents/bestWorst/data/dat.impRes.rtsne.RData')
 
+row.names(dat.impRes.rtsne) <- dat.impRes.rtsne$id
 
 #####################################################################################################################################################################################################################################################################
 ## unsupervised clustering
 
-
 my.data <- na.omit(dat.impRes.rtsne[,grep(names(dat.impRes.rtsne),pattern='tsne.3')])
 
 
-
-
-
-## unsupervised clustering
-my.data <- na.omit(dat.tsne[,grep(names(dat.tsne),pattern='tsne.6')])
 
 ##http://www.sthda.com/english/wiki/factoextra-r-package-easy-multivariate-data-analyses-and-elegant-visualization
 library(factoextra)
@@ -36,18 +31,21 @@ library("FactoMineR")
 ## Determine the optimal number of clusters
 library(pvclust)
 fit <- pvclust(t(my.data), method.hclust='ward.D2',method.dist='euclidean')
+fit <- pvclust(my.data, method.hclust='ward.D2',method.dist='euclidean')
 ## ‘"average"’, ‘"ward.D"’, ‘"ward.D2"’, ‘"single"’,
 ##          ‘"complete"’, ‘"mcquitty"’, ‘"median"’ or ‘"centroid"’.
 plot(fit)
 pvrect(fit,alpha=.95)
 ##
 library(mclust)
-fit2 <- Mclust(t(my.data))
+fit2 <- Mclust(my.data)
 plot(fit2)
+3
+
 summary(fit2)
 library(forcats)
 
-Ftsne6 <- as_factor(paste0('Ftsne6.',as.character(fit2$classification)))
+Ftsne6 <- as_factor(paste0('Ftsne3.',as.character(fit2$classification)))
 fct_count(Ftsne6)
 ## Generate the dummies variables from the factor.
 ###############################
@@ -66,8 +64,7 @@ nclusters <- 3
 
 
 library(NbClust)
-NbClust(data = NULL, diss = NULL, distance = "euclidean",
-        min.nc = 2, max.nc = 15, method = NULL, index = "all")
+
 
 ## calculate 30 indices for determine optimal number of cluster
 nb <- NbClust(my.data, distance = "euclidean", min.nc = 2,
@@ -85,12 +82,20 @@ tsne.res <- kmeans(scale(my.data), nclusters, nstart = 25)
 ## visualize
 fviz_cluster(tsne.res,data=my.data, ggtheme = theme_minimal(),main = "Partitioning Clustering tsne")
 ## pintar ahora pacientes con diferentes enfermedades.
+##Partitioning clustering
+## compute kmeans
+nclusters <- 9
+tsne.res <- kmeans(scale(my.data), nclusters, nstart = 25)
+## visualize
+fviz_cluster(tsne.res,data=my.data, ggtheme = theme_minimal(),main = "Partitioning Clustering tsne")
+## pintar ahora pacientes con diferentes enfermedades.
+
 
 
 
 ##
 ## Hierarchical clustering
-## Compute hierarchical clustering and cut into 4 clusters
+## Compute hierarchical clustering and cut into "nclusters" clusters
 res <- hcut(my.data, k = nclusters, stand = TRUE)
 fviz_dend(res, rect = TRUE, cex = 0.5)
 
