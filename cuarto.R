@@ -14,7 +14,7 @@ library(plyr)
 rtsneDims <- function(X){
     a <- Rtsne(as.matrix(dat[dat$punctured==1,universo.fen]),dims = X)
     colnames(a$Y) <- paste0('tsne.',X,'.',1:X)
-    row.names(a$Y) <- row.names(kk.imp.norm)
+    row.names(a$Y) <- dat[dat$punctured==1,'id']
     return(a)
 }
 
@@ -48,19 +48,19 @@ p <- plot_ly(bb, x = ~tsne.3.1, y = ~tsne.3.2, z = ~tsne.3.3, color = ~VT, size 
   layout(title = 't-SNE of GAIT2 proteins related with VT',
          scene = list(xaxis = list(title = 't-SNE 1',
                       gridcolor = 'rgb(255, 255, 255)',
-                      range = c(-19,19),
+                      range = range(bb$tsne.3.1,na.rm=TRUE),
                       zerolinewidth = 1,
                       ticklen = 5,
                       gridwidth = 2),
                yaxis = list(title = 't-SNE 2',
                       gridcolor = 'rgb(255, 255, 255)',
-                      range = c(-22,18),
+                      range = range(bb$tsne.3.2,na.rm=TRUE),
                       zerolinewidth = 1,
                       ticklen = 5,
                       gridwith = 2),
                zaxis = list(title = 't-SNE 3',
                             gridcolor = 'rgb(255, 255, 255)',
-                            range = c(-36,27),
+                            range =range(bb$tsne.3.3,na.rm=TRUE),
                    ##         type = 'log',
                             zerolinewidth = 1,
                             ticklen = 5,
@@ -79,6 +79,7 @@ p <- plot_ly(bb, x = ~tsne.3.1, y = ~tsne.3.2, z = ~tsne.3.3, color = ~VT, size 
 
 SEX
 smoking
+
 AGE
 bmi
 PSt
@@ -111,31 +112,32 @@ diabetesMel
 
 ## parece ser que está todo muy determinado por el sexo y la edad. Recalcular todo con los residuos.
 
-p <- plot_ly(bb, x = ~tsne.3.1, y = ~tsne.3.2, z = ~tsne.3.3, color = ~FERRIT, size = ~bmi,  colors = c('#0C4B8E','#BF382A' ),
+p <- plot_ly(bb, x = ~tsne.3.1, y = ~tsne.3.2, z = ~tsne.3.3, color = ~PSt, size = ~as.numeric(VT),  colors = c('#0C4B8E','#BF382A' ),
              marker = list(symbol = 'circle', sizemode = 'diameter'), sizes = c(3, 10),
              text = ~paste('Subject:',id,'<br>Family:', FAM, '<br>Age:', round(AGE,0))) %>%
   layout(title = 't-SNE of GAIT2 proteins related with VT',
          scene = list(xaxis = list(title = 't-SNE 1',
                       gridcolor = 'rgb(255, 255, 255)',
-                      range = c(-19,19),
+                      range = range(bb$tsne.3.1,na.rm=TRUE),
                       zerolinewidth = 1,
                       ticklen = 5,
                       gridwidth = 2),
                yaxis = list(title = 't-SNE 2',
                       gridcolor = 'rgb(255, 255, 255)',
-                      range = c(-22,18),
+                      range = range(bb$tsne.3.2,na.rm=TRUE),
                       zerolinewidth = 1,
                       ticklen = 5,
                       gridwith = 2),
                zaxis = list(title = 't-SNE 3',
                             gridcolor = 'rgb(255, 255, 255)',
-                            range = c(-36,27),
+                            range = range(bb$tsne.3.3,na.rm=TRUE),
                    ##         type = 'log',
                             zerolinewidth = 1,
                             ticklen = 5,
                             gridwith = 2)),
          paper_bgcolor = 'rgb(243, 243, 243)',
          plot_bgcolor = 'rgb(243, 243, 243)')
+p
 ################################
 
 
@@ -158,19 +160,19 @@ p.fam <- plot_ly(bb, x = ~tsne.3.1, y = ~tsne.3.2, z = ~tsne.3.3, color = ~FAM, 
   layout(title = 't-SNE of GAIT2 proteins related with VT',
          scene = list(xaxis = list(title = 't-SNE 1',
                       gridcolor = 'rgb(255, 255, 255)',
-                      range = c(-19,19),
+                      range = range(bb$tsne.3.1,na.rm=TRUE),
                       zerolinewidth = 1,
                       ticklen = 5,
                       gridwidth = 2),
                yaxis = list(title = 't-SNE 2',
                       gridcolor = 'rgb(255, 255, 255)',
-                      range = c(-22,18),
+                      range = range(bb$tsne.3.2,na.rm=TRUE),
                       zerolinewidth = 1,
                       ticklen = 5,
                       gridwith = 2),
                zaxis = list(title = 't-SNE 3',
                             gridcolor = 'rgb(255, 255, 255)',
-                            range = c(-36,27),
+                            range = range(bb$tsne.3.3,na.rm=TRUE),
                    ##         type = 'log',
                             zerolinewidth = 1,
                             ticklen = 5,
@@ -180,6 +182,19 @@ p.fam <- plot_ly(bb, x = ~tsne.3.1, y = ~tsne.3.2, z = ~tsne.3.3, color = ~FAM, 
 
 
 p.fam
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
