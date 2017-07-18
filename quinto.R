@@ -338,13 +338,133 @@ save(universo,universo.dis,universo.extr,universo.fen,dat,dat.plot,out.dat,out.p
 ## Ahora he de construir la lista de hipervolumenes con las enfermedades.
 ## luego podré mirar que unicidades tienen los hipervolumenes y que intersecciones.
 ## explorar si a los hipervolumenes se le pueden poner pesos diferentes según su importancia.
+library(hypervolume)
+
+ll <- dat.impRes.rtsne[dat.impRes.rtsne$punctured==1,setdiff(universo.fen,'HCYhplc')]
+
+ll <- dat.impRes.rtsne[dat.impRes.rtsne$punctured==1,c("tsne.3.1","tsne.3.2","tsne.3.3")]
 
 
-hv_finches_list = new("HypervolumeList")
+my.hv <- hypervolume(ll,bandwidth=3,repsperpoint=60,quantile=0.4,name='prueba')
+summary(my.hv)
+plot(my.hv)
+Hypervolume
+	Name: prueba
+	Nr. of observations: 935
+	Dimensionality: 3
+	Volume: 113587.739919
+	Bandwidth: 5 5 5
+	Disjunct factor: 0.121484
+	Quantile desired: 0.600000
+	Quantile obtained: 0.553325
+	Nr. of repetitions per point: 60
+	Number of random points: 6226
+	Point density: 0.054812
 
 
 
+Hypervolume
+	Name: untitled
+	Nr. of observations: 935
+	Dimensionality: 37
+	Volume: 0.000000
+	Bandwidth: 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25
+	Disjunct factor: 1.000000
+	Quantile desired: 0.000000
+	Quantile obtained: 0.000000
+	Nr. of repetitions per point: 4000
+	Number of random points: 2364183
+Point density: 347519612124377.937500
 
+
+hypervolume_importance(my.hv)
+
+plot(my.hv)
+dim(my.hv@RandomUniformPointsThresholded)
+
+
+head(ll)
+
+STFR==1.3227936
+
+## my.hv@RandomUniformPointsThresholded[my.hv@RandomUniformPointsThresholded$STFR==1.3227936,]
+
+## hv_finches_list = new("HypervolumeList")
+
+
+
+##################
+library(distances)
+my_data_points <-my.hv@RandomUniformPointsThresholded
+distan.all <- distances(my_data_points)
+plot(as.matrix(distan.all)[1,])
+
+
+
+my_data_points <-    data.frame( rbind(unlist(dat.impRes.rtsne['31201',universo.fen]) , my.hv@RandomUniformPointsThresholded))
+## Euclidean distances in only one dimension
+(my_data_points,
+  
+
+get_volume
+
+
+ my_distances2 <- distances(my_data_points,
+                                dist_variables = "x")
+
+
+#################################################33
+## generar multiples hypervolumenes y concatenarlos, uno para cada tipo-subtipo de enfermedad
+# generate annulus data
+data_annulus <- data.frame(matrix(data=runif(4000),ncol=2))
+names(data_annulus) <- c("x","y")
+data_annulus <- subset(data_annulus,
+sqrt((x-0.5)^2+(y-0.5)^2) > 0.4 & sqrt((x-0.5)^2+(y-0.5)^2) < 0.5)
+# MAKE HYPERVOLUME (low reps for fast execution)
+hv_annulus <- hypervolume(data_annulus,bandwidth=0.1,name='annulus',reps=500)
+# GET CONVEX EXPECTATION
+hv_convex <- expectation_convex(hv_annulus, check_memory=FALSE)
+# DETECT HOLES (low npoints for fast execution)
+features_annulus <- hypervolume_holes(
+hv_obs=hv_annulus,
+hv_exp=hv_convex,
+set_check_memory=FALSE)
+# CLEAN UP RESULTS
+features_segmented <- hypervolume_segment(features_annulus)
+features_segmented_pruned <- hypervolume_prune(features_segmented, minvol=0.01)
+# PLOT RETAINED HOLE(S)
+plot(hypervolume_join(hv_annulus, features_segmented_pruned))
+hypervo
+
+
+############################################
+    data(iris)
+    ll <- subset(iris, Species=="setosa")[,1:4]
+##    hv1 = hypervolume(ll,bandwidth=0.2)
+    hv1 = hypervolume(ll,bandwidth=0.1,repsperpoint=80)
+    ## el Disjunct factor: ha de ser 0.5
+    summary(hv1)
+    plot(hv1)
+    
+my.dat <-    data.frame( rbind(unlist(ll[1,]) , hv1@RandomUniformPointsThresholded))
+
+    ## Euclidean distances in only one dimension
+    library(distances)
+    my.dis <- distances(my.dat)
+    plot(as.matrix(my.dis)[1,])
+
+    ###########
+hv1.seg <- hypervolume_segment(hv1,distancefactor= hv1@Dimensionality)
+
+    ## juntar varios hypervolumenes
+    hv.set <- hypervolume_set(hv1, hv2, check_memory=TRUE)
+    ## overlap found in hv1 and hv2
+    hypervolume_sorensen_overlap(hv.set)
+    # examine volumes of each set component
+    get_volume(hv_set)
+#########################################
+
+    
 
 
 
