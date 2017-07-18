@@ -462,6 +462,39 @@ hv1.seg <- hypervolume_segment(hv1,distancefactor= hv1@Dimensionality)
     hypervolume_sorensen_overlap(hv.set)
     # examine volumes of each set component
     get_volume(hv_set)
+
+    ## downsample to 1000 random points
+    hv1_thinned = hypervolume_thin(hv1, npoints=1000)
+
+## plot
+plot(hv1,npmax_data = 1000, npmax_random = 2000,colors=rainbow(3),alpha=0.8, names=NULL,reshuffle=TRUE, showrandom=TRUE, showdensity=TRUE,showdata=TRUE,darkfactor=0.5,cex.random=0.5,cex.data=0.75,cex.axis=0.75,cex.names=1.0,cex.legend=0.75,legend=TRUE, varlims=NULL,showcontour=TRUE, contour.lwd=1, contour.filled=FALSE,contour.filled.alpha=0.5,contour.factor=0.05, showcentroid=TRUE,pairplot=FALSE)
+
+
+
+## plot
+plot(hv1,
+npmax_data = 1000, npmax_random = 2000,
+reshuffle=TRUE, showrandom=TRUE, showdensity=TRUE,showdata=TRUE,darkfactor=0.5,
+cex.random=0.5,cex.data=0.75,cex.axis=0.75,cex.names=1.0,cex.legend=0.75,
+legend=TRUE, varlims=NULL,
+showcontour=TRUE, contour.lwd=1, contour.filled=TRUE,contour.filled.alpha=0.5,
+contour.factor=0.05, showcentroid=TRUE,pairplot=FALSE)
+    
+## plot
+plot(hv1,
+npmax_data = 1000, npmax_random = 2000,
+reshuffle=TRUE, showrandom=TRUE, showdensity=TRUE,showdata=TRUE,darkfactor=0.5,
+cex.random=0.5,cex.data=0.75,cex.axis=0.75,cex.names=1.0,cex.legend=0.75,
+legend=TRUE, varlims=NULL,
+showcontour=TRUE, contour.lwd=1, contour.filled=TRUE,contour.filled.alpha=0.5,
+contour.factor=0.05, showcentroid=TRUE,pairplot=TRUE)
+
+
+## original
+    head(hv1@Data)
+## samples
+    head(hv1@RandomUniformPointsThresholded)
+
 #########################################
 
     
