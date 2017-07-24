@@ -19,6 +19,17 @@
 ## chmod 600 ~/.ssh/config
 
 
+sudo service nginx stop
+sudo service shiny-server stop
+
+sudo emacs /etc/nginx/sites-available/default
+## chequear configuracion del nginx.conf
+nginx -t -c /etc/nginx/nginx.conf
+
+## edit shiny-server to only server to localhost. Not server to 3838
+sudo emacs /etc/shiny-server/shiny-server.conf
+
+
 
 
 
