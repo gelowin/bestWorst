@@ -8,6 +8,7 @@ library(ggplot2)
 library(plyr)
 library(cluster)
 library(reshape2)
+library(broom)
 
 out.plot <- '/home/amartinezp/Documents/bestWorst/plots'
 dir.create(out.plot,showWarnings=FALSE)
