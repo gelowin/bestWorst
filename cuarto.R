@@ -31,7 +31,7 @@ rm(a.li)
 
 
 ###############################
-save(dat.impRes.rtsne,universo.dis,universo.extr,universo.fen,universo,chungos,chungosMenos,out.plot,out.dat,file=file.path(out.dat,'dat.impRes.rtsne.RData'))
+save(dat,universo.dis,universo.extr,universo.fen,universo,chungos,chungosMenos,out.plot,out.dat,file=file.path(out.dat,'dat.impRes.rtsne.RData'))
 
 
 
