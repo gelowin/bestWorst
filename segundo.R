@@ -39,6 +39,25 @@ row.names(ll) <- ll$id
 ll <- ll[,-which(colnames(ll)=='id')]
 colnames(ll) <- paste0('r',colnames(ll))
 
+###############################
+##  TEST for imputation      ##
+###############################
+## before imputation one question:
+## Can we believe in the imputations?
+library(missMDA)
+# estimate the number of dimensions to impute
+nbdim <- estim_ncpPCA(ll)
+ll.df <- as.data.frame(ll)
+kk.comp <- MIPCA(ll.df, ncp = max(nbdim$ncp,4), nboot = 1000)
+plot(kk.comp)
+?pool
+## Diagnostics
+kk.over<-Overimpute(kk.comp)
+
+## MIMCA can be used for categorical data
+## res <- MIMCA(vnf, ncp=4,nboot=10)
+
+
 
 ## first impute because pcout not handle missing values
 ######################
@@ -46,6 +65,7 @@ colnames(ll) <- paste0('r',colnames(ll))
 ######################
 ## 1.- MICE
 library(mice)
+
 dis.miss <- c('CVI','VT')
 dat <- merge(dat,ll,by='row.names',all.x=TRUE,all.y=FALSE)
 row.names(dat) <- dat$id
