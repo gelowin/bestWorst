@@ -49,10 +49,18 @@ library(missMDA)
 nbdim <- estim_ncpPCA(ll)
 ll.df <- as.data.frame(ll)
 kk.comp <- MIPCA(ll.df, ncp = max(nbdim$ncp,4), nboot = 1000)
+kk.imp <- imputePCA(ll.df, ncp = max(nbdim$ncp,4))
+kk.pca <- PCA(kk.imp$completeObs)
+
 plot(kk.comp)
 ?pool
 ## Diagnostics
 kk.over<-Overimpute(kk.comp)
+
+## little art
+library(kandinsky)
+kandinsky(kk)
+
 
 ## MIMCA can be used for categorical data
 ## res <- MIMCA(vnf, ncp=4,nboot=10)
