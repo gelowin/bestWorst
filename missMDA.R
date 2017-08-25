@@ -60,3 +60,4 @@ plot(res.mfa, lab.ind = FALSE, partial = "GBM29", habillage = "group")
 ## library("FactoMineR")
 ## resMCA <- MCA(mis.ind, graph = FALSE)
 ## plot(resMCA, invis = "ind", title = "MCA graph of the categories") 
+#
